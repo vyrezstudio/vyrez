@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vyrez – Chatbot Inteligente</title>
+  <style>
+    :root { --navy:#0b1f3c; --blue:#3b5b8a; --bg:#f7f8fb; --text:#111622; --muted:#5b6472; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; background: linear-gradient(180deg, #ffffff, var(--bg)); color: var(--text); }
+    .wrap { max-width: 900px; margin: 0 auto; padding: 20px; }
+    .card { background: #ffffff; border: 1px solid #e7ebf0; border-radius: 14px; padding: 16px; box-shadow: 0 10px 28px rgba(11,31,60,0.08); }
+    .chat { height: 50vh; overflow:auto; display:flex; flex-direction:column; gap:10px; padding: 10px; }
+    .msg { border-radius: 12px; padding: 10px 12px; max-width: 80%; }
+    .user { align-self: flex-end; background: #eef1f5; }
+    .bot { align-self: flex-start; background: #eaf0ff; }
+    .row { display:flex; gap:10px; margin-top:10px }
+    input { flex:1; padding: 10px 12px; border-radius: 10px; border: 1px solid #dfe6ed; }
+    button { appearance:none; border:0; border-radius:12px; padding:10px 14px; font-weight:700; background: linear-gradient(180deg, #3b5b8a, #0b1f3c); color:#fff; box-shadow:0 10px 20px rgba(11,31,60,0.18); cursor:pointer }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Chatbot Vyrez</h1>
+    <div class="card">
+      <div id="chat" class="chat"></div>
+      <div class="row"><input id="in" placeholder="Digite sua pergunta" /><button id="send">Enviar</button></div>
+      <div class="row" id="quick"></div>
+      <div class="row"><a id="wpp" href="https://wa.me/5535984734190" target="_blank" rel="noopener">Falar com um humano no WhatsApp – 35 98473-4190</a></div>
+    </div>
+  </div>
+  <script>
+    const chat=document.getElementById('chat');
+    const input=document.getElementById('in');
+    const send=document.getElementById('send');
+    const quick=document.getElementById('quick');
+    const wsp='https://wa.me/5535984734190';
+    let unknownCount=0;
+    function push(text,cls){const d=document.createElement('div');d.className='msg '+cls;d.textContent=text;chat.appendChild(d);chat.scrollTop=chat.scrollHeight}
+    function typing(){const d=document.createElement('div');d.className='msg bot';d.textContent='Digitando…';chat.appendChild(d);return d}
+    function answers(){return[
+      {p:['hospedagem','host','server','preço','valor'],a:'Nossa hospedagem custa R$12,50/mês, com SSL grátis e 99.9% de uptime. É segura, estável e com renovação automática.'},
+      {p:['site personalizado','personalizado','feito sob medida','do zero'],a:'Criamos sites do zero com design profissional e responsivo. O preço depende da complexidade e mão de obra.'},
+      {p:['prazo','tempo','entrega'],a:'Geralmente entregamos entre 1 e 3 dias, conforme o nível de personalização.'},
+      {p:['pagamento','pagar','forma de pagamento'],a:'O pagamento é confirmado pelo número de WhatsApp informado no pedido. Após confirmação, seguimos com a produção e entrega.'},
+      {p:['reembolso','refund'],a:'Produtos e serviços digitais não possuem reembolso após a entrega, conforme nossa política.'},
+      {p:['24h','funciona','horário','atendimento'],a:'Pedidos podem ser feitos 24h; produção e suporte funcionam em janelas estendidas e respondemos rapidamente.'},
+      {p:['seguro','segurança','privacidade'],a:'Utilizamos práticas seguras, SSL e manutenção contínua. Seus dados são tratados com confidencialidade.'},
+      {p:['whatsapp','humano','suporte'],a:'Você pode falar com um humano no WhatsApp. Posso abrir o chat para você agora.'}
+    ]}
+    function intent(q){const t=q.toLowerCase();for(const it of answers()){for(const k of it.p){if(t.includes(k)) return it} }return null}
+    function professional(a){return a}
+    function handle(q){const i=intent(q); if(i){unknownCount=0;const t=typing();setTimeout(()=>{t.remove();push(professional(i.a),'bot'); if(i.p.includes('whatsapp')) window.open(wsp,'_blank','noopener');},500);} else {unknownCount++;const t=typing();setTimeout(()=>{t.remove();push('Posso te ajudar com hospedagem, site personalizado, prazos ou pagamento.','bot'); if(unknownCount>=2){push('Para agilizar, vou abrir nosso WhatsApp.','bot'); window.open(wsp,'_blank','noopener'); unknownCount=0;} },700);} }
+    function quickBtns(){const items=['Hospedagem','Site personalizado','Prazo','Pagamento','Suporte humano']; quick.innerHTML=''; for(const x of items){ const b=document.createElement('button'); b.textContent=x; b.style.cssText='appearance:none;border:0;border-radius:12px;padding:8px 10px;font-weight:700;background:linear-gradient(180deg,#eef1f5,#dfe6ed);color:#0b1f3c;box-shadow:0 8px 16px rgba(11,31,60,0.12);cursor:pointer'; b.addEventListener('click',()=>handle(x)); quick.appendChild(b);} }
+    quickBtns();
+    push('Olá! Sou o assistente Vyrez. Como posso ajudar hoje?','bot');
+    send.addEventListener('click',()=>{const v=input.value.trim();if(!v) return;push(v,'user');input.value='';handle(v)});
+    input.addEventListener('keydown',(e)=>{if(e.key==='Enter'){send.click()}});
+  </script>
+</body>
+</html>
