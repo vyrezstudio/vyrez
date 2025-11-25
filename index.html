@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
   <meta charset="utf-8" />
@@ -166,7 +166,48 @@
 
   <section id="contato" class="section reveal">
     <h2>Contato</h2>
-    <div class="card"><div><strong>WhatsApp:</strong> <span id="wpp">35 98473-4190</span></div><div><a id="wppbtn" class="btn btn-primary" href="#" target="_blank" rel="noopener">Falar no WhatsApp</a> <a class="btn btn-secondary" href="chatbot.html">Chatbot Inteligente</a> <a class="btn btn-secondary" href="admin.html">Painel Admin</a></div></div>
+    <div class="card"><div><strong>WhatsApp:</strong> <span id="wpp">35 98473-4190</span></div><div><a id="wppbtn" class="btn btn-primary" href="#" target="_blank" rel="noopener">Falar no WhatsApp</a> <a class="btn btn-secondary" href="#chatbot">Chatbot Inteligente</a> <a class="btn btn-secondary" href="#admin">Painel Admin</a></div></div>
+  </section>
+
+  <section id="chatbot" class="section reveal">
+    <h2>Chatbot Inteligente</h2>
+    <div class="card">
+      <div id="chat" class="chat" style="height: 50vh; overflow:auto; display:flex; flex-direction:column; gap:10px; padding:10px"></div>
+      <div class="row" style="display:flex; gap:10px; margin-top:10px"><input id="in" placeholder="Digite sua pergunta" style="flex:1; padding:10px 12px; border-radius:10px; border:1px solid #dfe6ed" /><button id="send" class="btn btn-primary">Enviar</button></div>
+      <div class="row" id="quick" style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap"></div>
+      <div class="row" style="display:flex; gap:10px; margin-top:10px"><a id="wpp2" class="btn btn-secondary" href="#" target="_blank" rel="noopener">Falar com um humano no WhatsApp – 35 98473-4190</a></div>
+    </div>
+  </section>
+
+  <section id="admin" class="section reveal">
+    <h2>Painel Admin</h2>
+    <div id="login" class="card">
+      <div class="row" style="display:flex; gap:10px; align-items:center; flex-wrap:wrap"><input id="user" placeholder="Usuário" style="flex:1; min-width:200px" /><input id="pass" type="password" placeholder="Senha" style="flex:1; min-width:200px" /></div>
+      <div class="row" style="display:flex; gap:10px; margin-top:10px"><button id="doLogin" class="btn btn-primary">Entrar</button></div>
+    </div>
+    <div id="panel" style="display:none">
+      <div class="grid-2">
+        <div class="card">
+          <h3>Configurações</h3>
+          <div class="row" style="display:flex; gap:10px; align-items:center; flex-wrap:wrap"><input id="cfgBrand" placeholder="Marca" /><input id="cfgWhats" placeholder="WhatsApp (ex: 5535984734190)" /></div>
+          <div class="row" style="display:flex; gap:10px; align-items:center; flex-wrap:wrap"><input id="cfgHosting" placeholder="Preço da hospedagem" /><textarea id="cfgAnn" placeholder="Aviso/Anúncio" style="width:100%; min-height:80px"></textarea></div>
+          <div class="row" style="display:flex; gap:10px"><button id="saveCfg" class="btn btn-primary">Salvar Configurações</button></div>
+        </div>
+        <div class="card">
+          <h3>Pedidos de Sites</h3>
+          <div style="overflow:auto"><table id="tblO" style="width:100%; border-collapse:collapse"><thead><tr><th>ID</th><th>Nome</th><th>WhatsApp</th><th>Email</th><th>Tipo</th><th>Status</th><th>Ações</th></tr></thead><tbody></tbody></table></div>
+        </div>
+        <div class="card">
+          <h3>Clientes</h3>
+          <div style="overflow:auto"><table id="tblC" style="width:100%; border-collapse:collapse"><thead><tr><th>Nome</th><th>WhatsApp</th><th>Email</th><th>Desde</th></tr></thead><tbody></tbody></table></div>
+        </div>
+        <div class="card">
+          <h3>Mensagens</h3>
+          <textarea id="msgArea" placeholder="Escreva um anúncio" style="width:100%; min-height:80px"></textarea>
+          <div class="row" style="display:flex; gap:10px; margin-top:10px"><button id="addAnn" class="btn btn-secondary">Adicionar Anúncio</button></div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <footer class="footer">
@@ -181,10 +222,23 @@
   </footer>
 
   <div id="overlay" class="overlay"></div>
-  <script type="module">
-    import {seed,getCfg,setCfg,addOrder,dataUrl} from './store.js';
+  <script>
+    const VY_CFG='vy_cfg';
+    const VY_ORD='vy_orders';
+    const VY_CLI='vy_clients';
+    function seed(){if(!localStorage.getItem(VY_CFG)){localStorage.setItem(VY_CFG,JSON.stringify({brand:'Vyrez',colors:{primary:'#0b1f3c',accent:'#4a6fa5',surface:'#f6f7f9'},hostingPrice:12.5,supportWhats:'5535984734190',announcements:[]}))}}
+    function getCfg(){try{return JSON.parse(localStorage.getItem(VY_CFG)||'{}')}catch{return{}}}
+    function setCfg(v){localStorage.setItem(VY_CFG,JSON.stringify(v))}
+    function getOrders(){try{return JSON.parse(localStorage.getItem(VY_ORD)||'[]')}catch{return[]}}
+    function setOrders(v){localStorage.setItem(VY_ORD,JSON.stringify(v))}
+    function getClients(){try{return JSON.parse(localStorage.getItem(VY_CLI)||'[]')}catch{return[]}}
+    function setClients(v){localStorage.setItem(VY_CLI,JSON.stringify(v))}
+    function uid(){return Math.random().toString(36).slice(2)+Date.now().toString(36)}
+    function dataUrl(file){return new Promise((res)=>{if(!file){res(null);return;}const r=new FileReader();r.onload=()=>res(r.result);r.readAsDataURL(file);})}
+    async function addOrder(payload){const orders=getOrders();const id=uid();orders.push({id,status:'awaiting_review',createdAt:Date.now(),payload});setOrders(orders);const clients=getClients();const wa=payload.whatsapp||'';if(wa&&!clients.find(c=>c.whatsapp===wa)){clients.push({name:payload.nome,whatsapp:wa,email:payload.email,createdAt:Date.now()});setClients(clients)}return id}
+    function approveOrder(id){const o=getOrders();const i=o.findIndex(x=>x.id===id);if(i>-1){o[i].status='approved';o[i].approvedAt=Date.now();setOrders(o)}return o}
+    function rejectOrder(id){const o=getOrders();const i=o.findIndex(x=>x.id===id);if(i>-1){o[i].status='rejected';o[i].rejectedAt=Date.now();setOrders(o)}return o}
     seed();
-    const cfg=getCfg();
     const revealEls=document.querySelectorAll('.reveal');
     const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{threshold:0.25});
     revealEls.forEach(el=>io.observe(el));
@@ -195,9 +249,11 @@
     menuBtn.addEventListener('click',toggleMenu);
     overlay.addEventListener('click',toggleMenu);
     nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ if(nav.classList.contains('open')) toggleMenu(); }));
+    const cfg=getCfg();
     document.getElementById('hprice').textContent=(cfg.hostingPrice||12.5).toFixed(2).replace('.',',');
     const wsp='https://wa.me/'+(cfg.supportWhats||'5535984734190');
     document.getElementById('wppbtn').setAttribute('href',wsp);
+    document.getElementById('wpp2').setAttribute('href',wsp);
     const wppText=document.getElementById('wpp');
     if(cfg.supportWhats) wppText.textContent=cfg.supportWhats.replace('55','').replace(/(\d{2})(\d{5})(\d{4})/,'$1 $2-$3');
     const ann=document.getElementById('ann');
@@ -207,6 +263,42 @@
     async function buildMessage(){ const f=new FormData(form); const nome=encodeURIComponent(f.get('nome')||''); const wa=encodeURIComponent(f.get('whatsapp')||''); const email=encodeURIComponent(f.get('email')||''); const tipo=encodeURIComponent(f.get('tipo')||''); const descricao=encodeURIComponent(f.get('descricao')||''); const cores=encodeURIComponent(f.get('cores')||''); const refs=encodeURIComponent(f.get('refs')||''); const prazo=encodeURIComponent(f.get('prazo')||''); const hosp=encodeURIComponent(f.get('hospedagem')||''); const text=`Pedido de Site%0ANome: ${nome}%0AWhatsApp: ${wa}%0AEmail: ${email}%0ATipo: ${tipo}%0ADescricao: ${descricao}%0ACores: ${cores}%0ARefs: ${refs}%0APrazo: ${prazo}%0AHospedagem: ${hosp}`; return wsp+'?text='+text; }
     form.addEventListener('submit', async (e)=>{ e.preventDefault(); const f=new FormData(form); const files=f.getAll('upload'); const uploads=[]; for(const file of files){ const du=await dataUrl(file); uploads.push(du); } const payload={ nome:f.get('nome')||'', whatsapp:f.get('whatsapp')||'', email:f.get('email')||'', tipo:f.get('tipo')||'', descricao:f.get('descricao')||'', cores:f.get('cores')||'', refs:f.get('refs')||'', prazo:f.get('prazo')||'', hospedagem:f.get('hospedagem')||'', uploads }; const id=await addOrder(payload); alert('Pedido enviado com sucesso. ID: '+id); const url=await buildMessage(); window.open(url,'_blank','noopener'); form.reset(); });
     btnWhats.addEventListener('click', async (e)=>{ e.preventDefault(); const url=await buildMessage(); window.open(url,'_blank','noopener'); });
+    const chat=document.getElementById('chat');
+    const input=document.getElementById('in');
+    const send=document.getElementById('send');
+    const quick=document.getElementById('quick');
+    let unknownCount=0;
+    function push(text,cls){const d=document.createElement('div');d.className='msg '+cls;d.style.borderRadius='12px';d.style.padding='10px 12px';d.style.maxWidth='80%';if(cls==='user'){d.style.alignSelf='flex-end';d.style.background='#eef1f5'}else{d.style.alignSelf='flex-start';d.style.background='#eaf0ff'}d.textContent=text;chat.appendChild(d);chat.scrollTop=chat.scrollHeight}
+    function typing(){const d=document.createElement('div');d.className='msg bot';d.style.borderRadius='12px';d.style.padding='10px 12px';d.style.maxWidth='80%';d.style.alignSelf='flex-start';d.style.background='#eaf0ff';d.textContent='Digitando…';chat.appendChild(d);return d}
+    function answers(){return[
+      {p:['hospedagem','host','server','preço','valor'],a:'Nossa hospedagem custa R$12,50/mês, com SSL grátis e 99.9% de uptime. É segura, estável e com renovação automática.'},
+      {p:['site personalizado','personalizado','feito sob medida','do zero'],a:'Criamos sites do zero com design profissional e responsivo. O preço depende da complexidade e mão de obra.'},
+      {p:['prazo','tempo','entrega'],a:'Geralmente entregamos entre 1 e 3 dias, conforme o nível de personalização.'},
+      {p:['pagamento','pagar','forma de pagamento'],a:'O pagamento é confirmado pelo número de WhatsApp informado no pedido. Após confirmação, seguimos com a produção e entrega.'},
+      {p:['reembolso','refund'],a:'Produtos e serviços digitais não possuem reembolso após a entrega, conforme nossa política.'},
+      {p:['24h','funciona','horário','atendimento'],a:'Pedidos podem ser feitos 24h; produção e suporte funcionam em janelas estendidas e respondemos rapidamente.'},
+      {p:['seguro','segurança','privacidade'],a:'Utilizamos práticas seguras, SSL e manutenção contínua. Seus dados são tratados com confidencialidade.'},
+      {p:['whatsapp','humano','suporte'],a:'Você pode falar com um humano no WhatsApp. Posso abrir o chat para você agora.'}
+    ]}
+    function intent(q){const t=q.toLowerCase();for(const it of answers()){for(const k of it.p){if(t.includes(k)) return it} }return null}
+    function professional(a){return a}
+    function handle(q){const i=intent(q); const wsp=wspLink(); if(i){unknownCount=0;const t=typing();setTimeout(()=>{t.remove();push(professional(i.a),'bot'); if(i.p.includes('whatsapp')) window.open(wsp,'_blank','noopener');},500);} else {unknownCount++;const t=typing();setTimeout(()=>{t.remove();push('Posso te ajudar com hospedagem, site personalizado, prazos ou pagamento.','bot'); if(unknownCount>=2){push('Para agilizar, vou abrir nosso WhatsApp.','bot'); window.open(wsp,'_blank','noopener'); unknownCount=0;} },700);} }
+    function quickBtns(){const items=['Hospedagem','Site personalizado','Prazo','Pagamento','Suporte humano']; quick.innerHTML=''; for(const x of items){ const b=document.createElement('button'); b.textContent=x; b.style.cssText='appearance:none;border:0;border-radius:12px;padding:8px 10px;font-weight:700;background:linear-gradient(180deg,#eef1f5,#dfe6ed);color:#0b1f3c;box-shadow:0 8px 16px rgba(11,31,60,0.12);cursor:pointer'; b.addEventListener('click',()=>handle(x)); quick.appendChild(b);} }
+    function wspLink(){const cfg=getCfg();return 'https://wa.me/'+(cfg.supportWhats||'5535984734190')}
+    document.getElementById('wpp2').setAttribute('href',wspLink());
+    quickBtns();
+    push('Olá! Sou o assistente Vyrez. Como posso ajudar hoje?','bot');
+    send.addEventListener('click',()=>{const v=input.value.trim();if(!v) return;push(v,'user');input.value='';handle(v)});
+    input.addEventListener('keydown',(e)=>{if(e.key==='Enter'){send.click()}});
+    const login=document.getElementById('login');
+    const panel=document.getElementById('panel');
+    const u=document.getElementById('user');
+    const p=document.getElementById('pass');
+    document.getElementById('doLogin').addEventListener('click',()=>{ if(u.value==='admin'&&p.value==='Luckas2411'){ login.style.display='none'; panel.style.display='block'; renderAdmin(); } else { alert('Credenciais inválidas'); } });
+    function renderAdmin(){ const cfg=getCfg(); document.getElementById('cfgBrand').value=cfg.brand||'Vyrez'; document.getElementById('cfgWhats').value=cfg.supportWhats||''; document.getElementById('cfgHosting').value=cfg.hostingPrice||12.5; const orders=getOrders(); const clients=getClients(); const tbodyO=document.querySelector('#tblO tbody'); tbodyO.innerHTML=''; for(const o of orders){ const p=o.payload||{}; const tr=document.createElement('tr'); tr.innerHTML=`<td>${o.id}</td><td>${p.nome||''}</td><td>${p.whatsapp||''}</td><td>${p.email||''}</td><td>${p.tipo||''}</td><td>${o.status}</td><td>${o.status==='awaiting_review'?'<button data-act="approve" data-id="'+o.id+'">Aprovar</button> <button data-act="reject" data-id="'+o.id+'">Rejeitar</button>':''}</td>`; tbodyO.appendChild(tr);} tbodyO.querySelectorAll('button').forEach(b=>b.addEventListener('click',onOrderAction)); const tbodyC=document.querySelector('#tblC tbody'); tbodyC.innerHTML=''; for(const c of clients){ const tr=document.createElement('tr'); const dt=new Date(c.createdAt||Date.now()); tr.innerHTML=`<td>${c.name||''}</td><td>${c.whatsapp||''}</td><td>${c.email||''}</td><td>${dt.toLocaleDateString()}</td>`; tbodyC.appendChild(tr);} }
+    function onOrderAction(e){ const id=e.currentTarget.getAttribute('data-id'); const act=e.currentTarget.getAttribute('data-act'); if(act==='approve'){ approveOrder(id); renderAdmin(); } else if(act==='reject'){ rejectOrder(id); renderAdmin(); } }
+    document.getElementById('saveCfg').addEventListener('click',()=>{ const cfg=getCfg(); cfg.brand=document.getElementById('cfgBrand').value||cfg.brand; cfg.supportWhats=document.getElementById('cfgWhats').value||cfg.supportWhats; cfg.hostingPrice=parseFloat(document.getElementById('cfgHosting').value||cfg.hostingPrice); const annVal=document.getElementById('cfgAnn').value; if(annVal){ cfg.announcements=cfg.announcements||[]; cfg.announcements.unshift(annVal); document.getElementById('cfgAnn').value=''; } setCfg(cfg); document.getElementById('hprice').textContent=(cfg.hostingPrice||12.5).toFixed(2).replace('.',','); document.getElementById('wppbtn').setAttribute('href','https://wa.me/'+(cfg.supportWhats||'5535984734190')); document.getElementById('wpp2').setAttribute('href','https://wa.me/'+(cfg.supportWhats||'5535984734190')); ann.textContent=(cfg.announcements&&cfg.announcements[0])||''; alert('Configuração salva.'); });
+    document.getElementById('addAnn').addEventListener('click',()=>{ const cfg=getCfg(); const t=document.getElementById('msgArea').value; if(!t){ alert('Escreva algo'); return; } cfg.announcements=cfg.announcements||[]; cfg.announcements.unshift(t); setCfg(cfg); document.getElementById('msgArea').value=''; ann.textContent=(cfg.announcements&&cfg.announcements[0])||''; alert('Anúncio adicionado.'); });
   </script>
 </body>
 </html>
