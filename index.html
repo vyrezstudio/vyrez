@@ -1,0 +1,212 @@
+  <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vyrez – Sites Profissionais e Hospedagem</title>
+  <meta name="description" content="Vyrez cria sites profissionais sob medida e oferece hospedagem segura por R$12,50/mês. Suporte inteligente e WhatsApp." />
+  <link rel="canonical" href="http://localhost:8000/vyrez/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Criação de Sites Profissionais, Rápidos e Personalizados – Vyrez" />
+  <meta property="og:description" content="Hospedagem segura por R$12,50/mês e sites sob medida para seu negócio." />
+  <meta property="og:url" content="http://localhost:8000/vyrez/" />
+  <meta name="theme-color" content="#0b1f3c" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b1f3c'/%3E%3Ctext x='50' y='62' text-anchor='middle' font-size='44' font-family='Poppins' fill='%23ffffff' font-weight='800'%3EVyrez%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root { --navy:#0b1f3c; --blue:#3b5b8a; --silver:#cfd6de; --gray:#eef1f5; --text:#111622; --muted:#5b6472; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; scroll-behavior: smooth; }
+    body { margin: 0; font-family: Poppins, Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Arial, 'Noto Sans', sans-serif; color: var(--text); background: linear-gradient(180deg, #ffffff, #f7f8fb); }
+    a { color: inherit; text-decoration: none; }
+    .header { position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(140%) blur(12px); background: rgba(255,255,255,0.85); border-bottom: 1px solid #e7ebf0; }
+    .inner { max-width: 1200px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; gap: 18px; }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .logo { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(135deg, var(--blue), var(--navy)); color: #fff; font-weight: 900; box-shadow: 0 10px 25px rgba(59,91,138,0.25); }
+    .title { font-weight: 800; letter-spacing: -0.01em; font-size: 18px; color: var(--navy); }
+    .nav { margin-left: auto; display: flex; gap: 14px; flex-wrap: wrap; }
+    .nav a { padding: 10px 14px; border-radius: 999px; color: var(--navy); opacity: 0.9; transition: background .35s ease, transform .35s ease; }
+    .nav a:hover { background: #eef3f9; transform: translateY(-2px); }
+    .mobile-toggle { display:none; margin-left:auto; appearance:none; border:0; border-radius:12px; padding:10px 12px; font-weight:800; background: linear-gradient(180deg, #cfd6de, #3b5b8a); color:#fff; box-shadow:0 10px 20px rgba(59,91,138,0.25); }
+    .btn { appearance: none; border: 0; border-radius: 16px; padding: 14px 24px; font-weight: 800; letter-spacing: 0.02em; cursor: pointer; transition: transform .25s ease, box-shadow .25s ease, filter .25s ease; }
+    .btn-primary { color: #ffffff; background: linear-gradient(180deg, #3b5b8a, #0b1f3c); box-shadow: 0 16px 30px rgba(11,31,60,0.25), inset 0 0 0 1px rgba(255,255,255,0.2); }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 24px 44px rgba(11,31,60,0.35); filter: brightness(1.08); }
+    .btn-secondary { color: #0b1f3c; background: linear-gradient(180deg, #eef1f5, #dfe6ed); box-shadow: 0 12px 22px rgba(59,91,138,0.18); }
+    .hero { position: relative; overflow: hidden; }
+    .hero-inner { max-width: 1200px; margin: 0 auto; padding: 80px 20px; display: grid; gap: 18px; grid-template-columns: 1.1fr .9fr; align-items: center; }
+    .hero h1 { margin: 0; font-size: clamp(32px, 6vw, 52px); letter-spacing: -0.02em; color: var(--navy); }
+    .hero p { margin: 0; font-size: clamp(16px, 2.8vw, 19px); color: var(--muted); }
+    .mock { width: min(480px, 80%); justify-self: center; border-radius: 24px; background: linear-gradient(135deg, #eef1f5, #cfd6de); box-shadow: 0 30px 80px rgba(11,31,60,0.18); height: 280px; display:grid; place-items:center; color: var(--navy); font-weight:800; }
+    .glow { position: absolute; inset: -20% -20% -20% -20%; background: radial-gradient(800px 400px at 20% 10%, rgba(59,91,138,0.15), transparent), radial-gradient(600px 300px at 80% 30%, rgba(11,31,60,0.15), transparent); filter: blur(30px); pointer-events:none; }
+    .section { max-width: 1200px; margin: 0 auto; padding: 64px 20px; }
+    .section h2 { margin: 0 0 14px; font-size: clamp(24px, 4.8vw, 34px); color: var(--navy); }
+    .muted { color: var(--muted); }
+    .grid-3 { display: grid; gap: 16px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-2 { display: grid; gap: 16px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .card { border-radius: 18px; background: #ffffff; box-shadow: 0 18px 60px rgba(11,31,60,0.08); padding: 20px; border: 1px solid #e7ebf0; }
+    .icon { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; background: linear-gradient(180deg, #cfd6de, #eef1f5); color: var(--navy); box-shadow: 0 10px 24px rgba(59,91,138,0.12); }
+    .form { display: grid; gap: 12px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .form .full { grid-column: 1 / -1; }
+    input, select, textarea { width: 100%; padding: 12px 14px; border-radius: 14px; border: 1px solid #dfe6ed; background: #ffffff; font-size: 14px; }
+    textarea { min-height: 120px; }
+    .banner { border-radius: 16px; padding: 14px 16px; background: linear-gradient(180deg, #eef3f9, #f7f9fc); border: 1px solid #e2e8f0; margin-top: 8px; }
+    .footer { border-top: 1px solid #e7ebf0; background: #ffffff; margin-top: 40px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; padding: 24px 20px; display: grid; gap: 16px; grid-template-columns: 1.2fr .8fr; align-items: center; }
+    .footer-links { display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+    .reveal { opacity: 0; transform: translateY(12px); transition: opacity .45s ease, transform .45s ease; }
+    .reveal.on { opacity: 1; transform: translateY(0); }
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.18); backdrop-filter: blur(2px); opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+    .overlay.on { opacity: 1; pointer-events: auto; }
+    section, .hero { scroll-margin-top: 80px; }
+    @media (max-width: 900px) { .hero-inner { grid-template-columns: 1fr; text-align: center; } .mobile-toggle { display:inline-flex; } .nav { position: fixed; top: 0; right: 0; width: 74vw; max-width: 340px; height: 100dvh; background: #ffffff; box-shadow: -16px 0 40px rgba(11,31,60,0.12); display: flex; flex-direction: column; padding: 18px; gap: 10px; transform: translateX(100%); transition: transform .3s ease; z-index: 60; } .nav.open { transform: translateX(0); display: flex; } }
+    @media (max-width: 700px) { .grid-3, .grid-2 { grid-template-columns: 1fr; } .btn { padding: 12px 18px; } }
+    @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="inner">
+      <div class="brand">
+        <div class="logo">Vy</div>
+        <div class="title">Vyrez</div>
+      </div>
+      <button id="menuBtn" class="mobile-toggle" aria-label="Abrir menu">Menu</button>
+      <nav class="nav" id="navMain">
+        <a href="#inicio">Início</a>
+        <a href="#planos">Planos</a>
+        <a href="#personalizados">Sites Personalizados</a>
+        <a href="#avaliacoes">Avaliações</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contato">Contato</a>
+        <a href="#personalizados" class="btn btn-primary">Criar Meu Site</a>
+      </nav>
+    </div>
+  </header>
+
+  <section id="inicio" class="hero">
+    <div class="glow"></div>
+    <div class="hero-inner">
+      <div class="reveal">
+        <h1>Criação de Sites Profissionais, Rápidos e Totalmente Personalizados</h1>
+        <p>Hospedagem segura por apenas R$12,50/mês e sites feitos sob medida para o seu negócio.</p>
+        <div style="margin-top:18px; display:flex; gap:12px; flex-wrap:wrap; align-items:center">
+          <a href="#personalizados" class="btn btn-primary">Solicitar Meu Site Agora</a>
+          <a href="#planos" class="btn btn-secondary">Ver Hospedagem</a>
+        </div>
+      </div>
+      <div class="mock reveal">Mockup</div>
+    </div>
+  </section>
+
+  <section class="section reveal">
+    <h2>Nossos Serviços</h2>
+    <div class="grid-3">
+      <div class="card"><div class="icon">SP</div><h3>Site Personalizado</h3><p class="muted">Criado totalmente do zero do jeito que o cliente quiser. Design profissional, responsivo e otimizado. O valor dependerá da mão de obra e do nível de personalização.</p></div>
+      <div class="card"><div class="icon">H</div><h3>Hospedagem Mensal (R$12,50)</h3><p class="muted">Hospedagem rápida, estável e segura com 99.9% de uptime.</p></div>
+      <div class="card"><div class="icon">AI</div><h3>Suporte Inteligente 24h</h3><p class="muted">Um robô responde as dúvidas; caso ele não resolva, você será enviado para o WhatsApp: <strong>35 98473-4190</strong>.</p></div>
+    </div>
+  </section>
+
+  <section id="personalizados" class="section reveal">
+    <h2>Formulário para Site Personalizado</h2>
+    <div class="banner" id="ann"></div>
+    <form id="formSite" class="form">
+      <div class="full"><label>Nome completo<input name="nome" required placeholder="Seu nome completo" /></label></div>
+      <div><label>WhatsApp (obrigatório)<input name="whatsapp" required placeholder="(DDD) número" /></label></div>
+      <div><label>E-mail<input name="email" type="email" placeholder="seu@email.com" /></label></div>
+      <div><label>Tipo de site<select name="tipo"><option>Loja Virtual</option><option>Catálogo</option><option>Portfólio</option><option>Landing Page</option><option>Sistema Personalizado</option><option>Outro</option></select></label></div>
+      <div class="full"><label>Descrição completa<textarea name="descricao" required placeholder="Explique tudo que deseja"></textarea></label></div>
+      <div class="full"><label>Preferência de cores<input name="cores" placeholder="Ex.: branco, cinza, prata, azul marinho" /></label></div>
+      <div class="full"><label>Referências de sites<input name="refs" placeholder="Links separados por vírgula" /></label></div>
+      <div class="full"><label>Upload opcional<input name="upload" type="file" multiple /></label></div>
+      <div><label>Prazo desejado<input name="prazo" type="date" /></label></div>
+      <div><label>Necessita hospedagem?<select name="hospedagem"><option>Sim</option><option>Não</option></select></label></div>
+      <div class="full"><input type="hidden" name="orçamento" value="auto" /></div>
+      <div class="full" style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-top:8px">
+        <button type="submit" class="btn btn-primary">Enviar Pedido de Site</button>
+        <a id="btnWhats" class="btn btn-secondary" href="#" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </form>
+  </section>
+
+  <section id="planos" class="section reveal">
+    <h2>Plano de Hospedagem</h2>
+    <div class="card">
+      <h3>Hospedagem Vyrez – R$<span id="hprice">12,50</span>/mês</h3>
+      <ul>
+        <li>SSL grátis</li>
+        <li>99.9% uptime</li>
+        <li>Suporte</li>
+        <li>Dados seguros</li>
+        <li>Renovação mensal automática</li>
+      </ul>
+      <div style="margin-top:10px"><a href="#personalizados" class="btn btn-primary">Contratar Hospedagem</a></div>
+    </div>
+  </section>
+
+  <section id="avaliacoes" class="section reveal">
+    <h2>Avaliações</h2>
+    <div class="grid-3">
+      <div class="card"><strong>João Martins – ⭐⭐⭐⭐⭐</strong><div class="muted">Fizeram meu site em 1 dia! Atendimento incrível e suporte perfeito.</div></div>
+      <div class="card"><strong>Carla Ribeiro – ⭐⭐⭐⭐⭐</strong><div class="muted">O design ficou exatamente como sonhei. Super recomendo!</div></div>
+      <div class="card"><strong>Matheus A. – ⭐⭐⭐⭐⭐</strong><div class="muted">O chatbot ajudou muito e a hospedagem é super rápida.</div></div>
+      <div class="card"><strong>Bruna Costa – ⭐⭐⭐⭐⭐</strong><div class="muted">Site profissional, bonito e entrega rápida.</div></div>
+      <div class="card"><strong>Vinícius Torres – ⭐⭐⭐⭐⭐</strong><div class="muted">Melhor custo-benefício que já encontrei.</div></div>
+      <div class="card"><strong>Letícia Moraes – ⭐⭐⭐⭐⭐</strong><div class="muted">Equipe ágil, atenciosa e o site ficou impecável.</div></div>
+    </div>
+  </section>
+
+  <section id="faq" class="section reveal">
+    <h2>FAQ</h2>
+    <details class="card"><summary>Quanto tempo leva a criação do site?</summary><p class="muted">Depende da personalização, mas geralmente de 1 a 3 dias.</p></details>
+    <details class="card"><summary>O valor do site personalizado é fixo?</summary><p class="muted">Não, depende da complexidade e do tempo de produção.</p></details>
+    <details class="card"><summary>A hospedagem é obrigatória?</summary><p class="muted">Somente se quiser que a Vyrez cuide do funcionamento.</p></details>
+    <details class="card"><summary>Como faço o pagamento?</summary><p class="muted">O pagamento é confirmado pelo número de WhatsApp informado.</p></details>
+  </section>
+
+  <section id="contato" class="section reveal">
+    <h2>Contato</h2>
+    <div class="card"><div><strong>WhatsApp:</strong> <span id="wpp">35 98473-4190</span></div><div><a id="wppbtn" class="btn btn-primary" href="#" target="_blank" rel="noopener">Falar no WhatsApp</a> <a class="btn btn-secondary" href="chatbot.html">Chatbot Inteligente</a> <a class="btn btn-secondary" href="admin.html">Painel Admin</a></div></div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="brand"><div class="logo">Vy</div><div class="muted">Vyrez</div></div>
+      <div class="footer-links">
+        <a href="#contato">Contato</a>
+        <a href="#">Termos de Uso</a>
+        <a href="#">Política de Privacidade</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="overlay" class="overlay"></div>
+  <script type="module">
+    import {seed,getCfg,setCfg,addOrder,dataUrl} from './store.js';
+    seed();
+    const cfg=getCfg();
+    const revealEls=document.querySelectorAll('.reveal');
+    const io=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target);}})},{threshold:0.25});
+    revealEls.forEach(el=>io.observe(el));
+    const menuBtn=document.getElementById('menuBtn');
+    const nav=document.getElementById('navMain');
+    const overlay=document.getElementById('overlay');
+    function toggleMenu(){ const open=!nav.classList.contains('open'); nav.classList.toggle('open',open); overlay.classList.toggle('on',open); }
+    menuBtn.addEventListener('click',toggleMenu);
+    overlay.addEventListener('click',toggleMenu);
+    nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{ if(nav.classList.contains('open')) toggleMenu(); }));
+    document.getElementById('hprice').textContent=(cfg.hostingPrice||12.5).toFixed(2).replace('.',',');
+    const wsp='https://wa.me/'+(cfg.supportWhats||'5535984734190');
+    document.getElementById('wppbtn').setAttribute('href',wsp);
+    const wppText=document.getElementById('wpp');
+    if(cfg.supportWhats) wppText.textContent=cfg.supportWhats.replace('55','').replace(/(\d{2})(\d{5})(\d{4})/,'$1 $2-$3');
+    const ann=document.getElementById('ann');
+    ann.textContent=(cfg.announcements&&cfg.announcements[0])||'';
+    const form=document.getElementById('formSite');
+    const btnWhats=document.getElementById('btnWhats');
+    async function buildMessage(){ const f=new FormData(form); const nome=encodeURIComponent(f.get('nome')||''); const wa=encodeURIComponent(f.get('whatsapp')||''); const email=encodeURIComponent(f.get('email')||''); const tipo=encodeURIComponent(f.get('tipo')||''); const descricao=encodeURIComponent(f.get('descricao')||''); const cores=encodeURIComponent(f.get('cores')||''); const refs=encodeURIComponent(f.get('refs')||''); const prazo=encodeURIComponent(f.get('prazo')||''); const hosp=encodeURIComponent(f.get('hospedagem')||''); const text=`Pedido de Site%0ANome: ${nome}%0AWhatsApp: ${wa}%0AEmail: ${email}%0ATipo: ${tipo}%0ADescricao: ${descricao}%0ACores: ${cores}%0ARefs: ${refs}%0APrazo: ${prazo}%0AHospedagem: ${hosp}`; return wsp+'?text='+text; }
+    form.addEventListener('submit', async (e)=>{ e.preventDefault(); const f=new FormData(form); const files=f.getAll('upload'); const uploads=[]; for(const file of files){ const du=await dataUrl(file); uploads.push(du); } const payload={ nome:f.get('nome')||'', whatsapp:f.get('whatsapp')||'', email:f.get('email')||'', tipo:f.get('tipo')||'', descricao:f.get('descricao')||'', cores:f.get('cores')||'', refs:f.get('refs')||'', prazo:f.get('prazo')||'', hospedagem:f.get('hospedagem')||'', uploads }; const id=await addOrder(payload); alert('Pedido enviado com sucesso. ID: '+id); const url=await buildMessage(); window.open(url,'_blank','noopener'); form.reset(); });
+    btnWhats.addEventListener('click', async (e)=>{ e.preventDefault(); const url=await buildMessage(); window.open(url,'_blank','noopener'); });
+  </script>
+</body>
+</html>
