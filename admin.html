@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vyrez Admin | Painel de Controle</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0F172A;
+            --secondary: #3B82F6;
+            --accent: #22C55E;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --surface: #FFFFFF;
+            --surface-alt: #F8FAFC;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --border: #E2E8F0;
+            --radius: 12px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--surface-alt);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Utilities */
+        .hidden { display: none !important; }
+        .flex { display: flex; }
+        .flex-col { flex-direction: column; }
+        .items-center { align-items: center; }
+        .justify-between { justify-content: space-between; }
+        .gap-2 { gap: 0.5rem; }
+        .gap-4 { gap: 1rem; }
+        .w-full { width: 100%; }
+        .mb-4 { margin-bottom: 1rem; }
+        .mb-6 { margin-bottom: 1.5rem; }
+        .text-sm { font-size: 0.875rem; }
+        .font-bold { font-weight: 700; }
+        .text-muted { color: var(--text-muted); }
+
+        /* Login Screen */
+        #login-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--surface-alt);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: var(--surface);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        /* Sidebar */
+        aside {
+            width: 260px;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid var(--border);
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-area {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-weight: 700;
+            font-size: 1.25rem;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: white;
+            color: var(--primary);
+            border-radius: 8px;
+            display: grid;
+            place-items: center;
+            font-weight: 800;
+        }
+
+        .nav-links {
+            padding: 1.5rem 1rem;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            color: #94A3B8;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-bottom: 4px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        .user-area {
+            padding: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            height: 70px;
+            background: var(--surface);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .content {
+            padding: 2rem;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        /* Cards & Components */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow-sm);
+            margin-bottom: 1.5rem;
+        }
+
+        h2 { font-size: 1.5rem; margin-bottom: 1.5rem; color: var(--primary); }
+        h3 { font-size: 1.1rem; margin-bottom: 1rem; }
+
+        /* Forms */
+        .form-group { margin-bottom: 1rem; text-align: left; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: 500; font-size: 0.875rem; }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .checkbox-wrapper input {
+            width: auto;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 20px;
+            font-weight: 600;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+            gap: 8px;
+        }
+        .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
+        .btn-primary { background: var(--secondary); color: white; }
+        .btn-primary:hover { background: #2563EB; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { background: #DC2626; }
+        .btn-success { background: var(--accent); color: white; }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-main); }
+        .btn-outline:hover { background: var(--surface-alt); }
+
+        /* Tables */
+        .table-container { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+        th { text-align: left; padding: 12px 16px; background: var(--surface-alt); color: var(--text-muted); font-weight: 600; border-bottom: 1px solid var(--border); }
+        td { padding: 12px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+        tr:last-child td { border-bottom: none; }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+        .status-awaiting_review { background: #FEF3C7; color: #D97706; }
+        .status-approved { background: #DCFCE7; color: #16A34A; }
+        .status-rejected { background: #FEE2E2; color: #DC2626; }
+
+        /* List Group (for services) */
+        .list-group {
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .list-item {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+        }
+        .list-item:last-child { border-bottom: none; }
+        .list-item:hover { background: var(--surface-alt); }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            aside { position: fixed; height: 100%; z-index: 50; transform: translateX(-100%); }
+            aside.open { transform: translateX(0); }
+            header { padding: 0 1rem; }
+            .content { padding: 1rem; }
+            .menu-toggle { display: block; }
+        }
+        @media (min-width: 769px) {
+            .menu-toggle { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Login Screen -->
+    <div id="login-screen">
+        <div class="login-card">
+            <div style="display: flex; justify-content: center; margin-bottom: 1.5rem;">
+                <div class="logo-icon" style="background: var(--primary); color: white; width: 48px; height: 48px; font-size: 24px;">V</div>
+            </div>
+            <h2 style="margin-bottom: 0.5rem; text-align: center;">Acesso Restrito</h2>
+            <p class="text-muted mb-6">Entre com suas credenciais de administrador.</p>
+            
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Usuário</label>
+                    <input type="text" id="user-input" placeholder="admin" required>
+                </div>
+                <div class="form-group">
+                    <label>Senha</label>
+                    <input type="password" id="pass-input" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-full">Entrar no Painel</button>
+            </form>
+            <p class="text-muted text-sm" style="margin-top: 1rem;">(Demo: admin / admin123)</p>
+        </div>
+    </div>
+
+    <!-- Dashboard Layout -->
+    <div id="dashboard-layout" class="flex w-full hidden">
+        
+        <!-- Sidebar -->
+        <aside id="sidebar">
+            <div class="logo-area">
+                <div class="logo-icon">V</div>
+                <span>Vyrez Admin</span>
+            </div>
+            
+            <nav class="nav-links">
+                <a class="nav-item active" onclick="navigate('home')">
+                    <span>📊</span> Visão Geral
+                </a>
+                <a class="nav-item" onclick="navigate('orders')">
+                    <span>🛍️</span> Pedidos
+                </a>
+                <a class="nav-item" onclick="navigate('clients')">
+                    <span>👥</span> Clientes
+                </a>
+                <a class="nav-item" onclick="navigate('services')">
+                    <span>🛠️</span> Serviços
+                </a>
+                <a class="nav-item" onclick="navigate('chatbot')">
+                    <span>🤖</span> Chatbot
+                </a>
+                <a class="nav-item" onclick="navigate('settings')">
+                    <span>⚙️</span> Configurações
+                </a>
+            </nav>
+
+            <div class="user-area">
+                <div style="width: 32px; height: 32px; background: rgba(255,255,255,0.2); border-radius: 50%;"></div>
+                <div style="flex: 1;">
+                    <div style="font-weight: 600; font-size: 0.9rem;">Admin</div>
+                    <div style="font-size: 0.75rem; color: #94A3B8;">Online</div>
+                </div>
+                <button onclick="logout()" style="background: none; border: none; color: white; cursor: pointer;">↪️</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main>
+            <header>
+                <button class="menu-toggle btn btn-outline" onclick="toggleSidebar()">☰</button>
+                <h3 id="page-title" style="margin: 0;">Visão Geral</h3>
+                <div>
+                    <a href="index.html" target="_blank" class="btn btn-outline text-sm">Ver Site ↗</a>
+                </div>
+            </header>
+
+            <div class="content">
+                
+                <!-- View: Home -->
+                <div id="view-home" class="view-section">
+                    <div class="flex gap-4 mb-6" style="flex-wrap: wrap;">
+                        <div class="card" style="flex: 1; min-width: 200px; text-align: center;">
+                            <div class="text-muted text-sm">Total de Pedidos</div>
+                            <div class="font-bold" style="font-size: 2rem; color: var(--primary);" id="stat-total">0</div>
+                        </div>
+                        <div class="card" style="flex: 1; min-width: 200px; text-align: center;">
+                            <div class="text-muted text-sm">Pendentes</div>
+                            <div class="font-bold" style="font-size: 2rem; color: var(--warning);" id="stat-pending">0</div>
+                        </div>
+                        <div class="card" style="flex: 1; min-width: 200px; text-align: center;">
+                            <div class="text-muted text-sm">Clientes</div>
+                            <div class="font-bold" style="font-size: 2rem; color: var(--secondary);" id="stat-clients">0</div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3>Pedidos Recentes</h3>
+                            <button class="btn btn-outline text-sm" onclick="navigate('orders')">Ver Todos</button>
+                        </div>
+                        <div class="table-container">
+                            <table id="table-recent-orders">
+                                <thead>
+                                    <tr>
+                                        <th>Cliente</th>
+                                        <th>Serviço</th>
+                                        <th>Data</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View: Orders -->
+                <div id="view-orders" class="view-section hidden">
+                    <div class="card">
+                        <h3>Gerenciar Pedidos</h3>
+                        <div class="table-container">
+                            <table id="table-orders">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Cliente</th>
+                                        <th>Contato</th>
+                                        <th>Tipo</th>
+                                        <th>Status</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View: Clients -->
+                <div id="view-clients" class="view-section hidden">
+                    <div class="card">
+                        <h3>Base de Clientes</h3>
+                        <div class="table-container">
+                            <table id="table-clients">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>WhatsApp</th>
+                                        <th>Email</th>
+                                        <th>Data Cadastro</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View: Services -->
+                <div id="view-services" class="view-section hidden">
+                    <div class="card" style="max-width: 600px;">
+                        <h3>Gerenciar Serviços</h3>
+                        <p class="text-muted mb-4">Adicione ou remova serviços disponíveis no formulário de pedido.</p>
+                        
+                        <div class="form-group flex gap-2">
+                            <input id="new-service-input" placeholder="Novo Serviço (ex: Consultoria SEO)">
+                            <button class="btn btn-primary" onclick="addServiceHandler()">Adicionar</button>
+                        </div>
+
+                        <div id="services-list" class="list-group">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- View: Chatbot -->
+                <div id="view-chatbot" class="view-section hidden">
+                    <div class="card" style="max-width: 600px;">
+                        <h3>Configuração do Chatbot</h3>
+                        <p class="text-muted mb-4">Personalize o comportamento do assistente virtual.</p>
+
+                        <form id="chat-form">
+                            <div class="form-group checkbox-wrapper">
+                                <input type="checkbox" id="chat-enabled">
+                                <label for="chat-enabled" style="margin:0;">Chatbot Ativado no Site</label>
+                            </div>
+
+                            <div class="form-group checkbox-wrapper">
+                                <input type="checkbox" id="chat-auto">
+                                <label for="chat-auto" style="margin:0;">Abrir Automaticamente (Pop-up)</label>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Mensagem de Boas-vindas</label>
+                                <textarea id="chat-welcome" rows="3" placeholder="Olá! Como posso ajudar?"></textarea>
+                            </div>
+
+                            <button type="button" class="btn btn-primary" onclick="saveChatConfigHandler()">Salvar Configurações</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- View: Settings -->
+                <div id="view-settings" class="view-section hidden">
+                    <div class="card" style="max-width: 600px;">
+                        <h3>Configurações Gerais</h3>
+                        <form id="settings-form">
+                            <div class="form-group">
+                                <label>Nome da Marca</label>
+                                <input id="cfg-brand" placeholder="Vyrez">
+                            </div>
+                            <div class="form-group">
+                                <label>WhatsApp de Suporte (DDI+DDD+Num)</label>
+                                <input id="cfg-whats" placeholder="5535...">
+                            </div>
+                            <div class="form-group">
+                                <label>Preço Hospedagem (R$)</label>
+                                <input id="cfg-price" type="number" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <button type="button" id="btn-save-cfg" class="btn btn-primary">Salvar Alterações</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card" style="max-width: 600px;">
+                        <h3>Anúncios / Avisos</h3>
+                        <div class="form-group">
+                            <label>Novo Anúncio</label>
+                            <textarea id="announcement-text" rows="3" placeholder="Escreva uma mensagem para aparecer no topo do site..."></textarea>
+                        </div>
+                        <button type="button" id="btn-add-ann" class="btn btn-secondary">Publicar Anúncio</button>
+                        
+                        <div style="margin-top: 1.5rem;">
+                            <label class="mb-4 block">Anúncios Ativos</label>
+                            <div id="announcements-list" class="list-group">
+                                <!-- Populated via JS -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script type="module">
+        import { 
+            seed, getCfg, setCfg, getOrders, getClients, 
+            approveOrder, rejectOrder,
+            getServices, setServices, getChatConfig, setChatConfig,
+            uid
+        } from './store.js';
+
+        // Initialize Store
+        seed();
+
+        // --- Auth Logic ---
+        const loginScreen = document.getElementById('login-screen');
+        const dashboard = document.getElementById('dashboard-layout');
+        const loginForm = document.getElementById('login-form');
+
+        // Check session
+        if (sessionStorage.getItem('vyrez_admin_logged') === 'true') {
+            showDashboard();
+        }
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const u = document.getElementById('user-input').value;
+            const p = document.getElementById('pass-input').value;
+
+            if (u === 'admin' && (p === 'admin123' || p === 'Luckas2411')) {
+                sessionStorage.setItem('vyrez_admin_logged', 'true');
+                showDashboard();
+            } else {
+                alert('Credenciais inválidas!');
+            }
+        });
+
+        function showDashboard() {
+            loginScreen.classList.add('hidden');
+            dashboard.classList.remove('hidden');
+            loadData();
+        }
+
+        window.logout = () => {
+            sessionStorage.removeItem('vyrez_admin_logged');
+            location.reload();
+        };
+
+        // --- Navigation ---
+        window.navigate = (viewName) => {
+            // Update UI
+            document.querySelectorAll('.view-section').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`view-${viewName}`).classList.remove('hidden');
+            
+            // Update Sidebar
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            // Find link with onclick containing the viewName
+            const links = document.querySelectorAll('.nav-item');
+            links.forEach(l => {
+                if(l.getAttribute('onclick').includes(viewName)) l.classList.add('active');
+            });
+
+            // Update Title
+            const titles = {
+                'home': 'Visão Geral',
+                'orders': 'Gerenciar Pedidos',
+                'clients': 'Clientes',
+                'services': 'Gerenciar Serviços',
+                'chatbot': 'Configuração do Chatbot',
+                'settings': 'Configurações'
+            };
+            document.getElementById('page-title').innerText = titles[viewName];
+
+            // Reload data
+            loadData();
+        };
+
+        window.toggleSidebar = () => {
+            document.getElementById('sidebar').classList.toggle('open');
+        };
+
+        // --- Data Loading & Rendering ---
+        function loadData() {
+            const cfg = getCfg();
+            const orders = getOrders();
+            const clients = getClients();
+            const services = getServices();
+            const chatCfg = getChatConfig();
+
+            // Stats
+            document.getElementById('stat-total').innerText = orders.length;
+            document.getElementById('stat-pending').innerText = orders.filter(o => o.status === 'awaiting_review').length;
+            document.getElementById('stat-clients').innerText = clients.length;
+
+            // Render Tables
+            renderOrdersTable(orders);
+            renderRecentOrders(orders);
+            renderClientsTable(clients);
+            
+            // Render Services
+            renderServicesList(services);
+
+            // Populate Settings
+            document.getElementById('cfg-brand').value = cfg.brand || 'Vyrez';
+            document.getElementById('cfg-whats').value = cfg.supportWhats || '';
+            document.getElementById('cfg-price').value = cfg.hostingPrice || 12.50;
+            renderAnnouncements(cfg.announcements || []);
+
+            // Populate Chatbot Settings
+            document.getElementById('chat-enabled').checked = chatCfg.enabled;
+            document.getElementById('chat-auto').checked = chatCfg.autoOpen;
+            document.getElementById('chat-welcome').value = chatCfg.welcomeMsg || '';
+        }
+
+        function formatStatus(status) {
+            const map = {
+                'awaiting_review': 'Pendente',
+                'approved': 'Aprovado',
+                'rejected': 'Rejeitado'
+            };
+            return map[status] || status;
+        }
+
+        function renderOrdersTable(orders) {
+            const tbody = document.querySelector('#table-orders tbody');
+            tbody.innerHTML = '';
+
+            if (orders.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 2rem;">Nenhum pedido encontrado.</td></tr>';
+                return;
+            }
+
+            orders.sort((a,b) => b.createdAt - a.createdAt).forEach(o => {
+                const p = o.payload || {};
+                const tr = document.createElement('tr');
+                
+                let statusBadge = `<span class="status-badge status-${o.status}">${formatStatus(o.status)}</span>`;
+                
+                let actions = '';
+                if (o.status === 'awaiting_review') {
+                    actions = `
+                        <button class="btn btn-success btn-sm" onclick="window.handleOrder('${o.id}', 'approve')">✓</button>
+                        <button class="btn btn-danger btn-sm" onclick="window.handleOrder('${o.id}', 'reject')">✕</button>
+                    `;
+                } else {
+                    actions = '<span class="text-muted">-</span>';
+                }
+
+                tr.innerHTML = `
+                    <td class="text-muted text-sm">#${o.id.substring(0,6)}</td>
+                    <td>
+                        <div class="font-bold">${p.nome || 'Desconhecido'}</div>
+                        <div class="text-muted text-sm">${p.email || ''}</div>
+                    </td>
+                    <td>
+                        <a href="https://wa.me/${p.whatsapp ? p.whatsapp.replace(/\D/g,'') : ''}" target="_blank" style="color: var(--secondary);">
+                            ${p.whatsapp || '-'}
+                        </a>
+                    </td>
+                    <td>${p.tipo || 'Geral'}</td>
+                    <td>${statusBadge}</td>
+                    <td>${actions}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderRecentOrders(orders) {
+            const tbody = document.querySelector('#table-recent-orders tbody');
+            tbody.innerHTML = '';
+            
+            const recent = orders.sort((a,b) => b.createdAt - a.createdAt).slice(0, 5);
+
+            if (recent.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Sem pedidos recentes.</td></tr>';
+                return;
+            }
+
+            recent.forEach(o => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${o.payload.nome || 'Anon'}</td>
+                    <td>${o.payload.tipo}</td>
+                    <td>${new Date(o.createdAt).toLocaleDateString()}</td>
+                    <td><span class="status-badge status-${o.status}">${formatStatus(o.status)}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderClientsTable(clients) {
+            const tbody = document.querySelector('#table-clients tbody');
+            tbody.innerHTML = '';
+
+            if (clients.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;">Nenhum cliente cadastrado.</td></tr>';
+                return;
+            }
+
+            clients.forEach(c => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${c.name}</td>
+                    <td>${c.whatsapp}</td>
+                    <td>${c.email || '-'}</td>
+                    <td>${new Date(c.createdAt).toLocaleDateString()}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function renderServicesList(services) {
+            const list = document.getElementById('services-list');
+            list.innerHTML = '';
+            
+            services.forEach((s, idx) => {
+                const item = document.createElement('div');
+                item.className = 'list-item';
+                item.innerHTML = `
+                    <span>${s}</span>
+                    <button class="btn btn-danger btn-sm" onclick="window.removeService(${idx})">Remover</button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function renderAnnouncements(anns) {
+            const list = document.getElementById('announcements-list');
+            list.innerHTML = '';
+
+            if (anns.length === 0) {
+                list.innerHTML = '<div class="text-muted text-sm p-2">Nenhum anúncio ativo.</div>';
+                return;
+            }
+
+            anns.forEach((a, idx) => {
+                const item = document.createElement('div');
+                item.className = 'list-item';
+                item.innerHTML = `
+                    <div style="flex: 1;">
+                        <div class="text-sm">${a.text}</div>
+                        <div class="text-muted" style="font-size: 0.7rem;">${new Date(a.createdAt).toLocaleDateString()}</div>
+                    </div>
+                    <button class="btn btn-danger btn-sm" onclick="window.removeAnnouncement(${idx})">🗑️</button>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        // --- Actions ---
+        window.handleOrder = (id, action) => {
+            if(!confirm(`Tem certeza que deseja ${action === 'approve' ? 'aprovar' : 'rejeitar'} este pedido?`)) return;
+            
+            if (action === 'approve') approveOrder(id);
+            if (action === 'reject') rejectOrder(id);
+            
+            loadData();
+        };
+
+        window.addServiceHandler = () => {
+            const input = document.getElementById('new-service-input');
+            const val = input.value.trim();
+            if (!val) return;
+
+            const s = getServices();
+            s.push(val);
+            setServices(s);
+            input.value = '';
+            loadData();
+        };
+
+        window.removeService = (idx) => {
+            if(!confirm('Remover este serviço?')) return;
+            const s = getServices();
+            s.splice(idx, 1);
+            setServices(s);
+            loadData();
+        };
+
+        window.saveChatConfigHandler = () => {
+            const enabled = document.getElementById('chat-enabled').checked;
+            const auto = document.getElementById('chat-auto').checked;
+            const welcome = document.getElementById('chat-welcome').value;
+
+            setChatConfig({ enabled, autoOpen: auto, welcomeMsg: welcome });
+            alert('Configurações do Chatbot salvas!');
+        };
+
+        // Settings Actions
+        document.getElementById('btn-save-cfg').addEventListener('click', () => {
+            const brand = document.getElementById('cfg-brand').value;
+            const whats = document.getElementById('cfg-whats').value;
+            const price = parseFloat(document.getElementById('cfg-price').value);
+
+            const cfg = getCfg();
+            cfg.brand = brand;
+            cfg.supportWhats = whats;
+            cfg.hostingPrice = price;
+            setCfg(cfg);
+            alert('Configurações salvas com sucesso!');
+        });
+
+        document.getElementById('btn-add-ann').addEventListener('click', () => {
+            const txt = document.getElementById('announcement-text').value.trim();
+            if(!txt) return;
+
+            const cfg = getCfg();
+            if(!cfg.announcements) cfg.announcements = [];
+            
+            cfg.announcements.push({
+                id: uid(),
+                text: txt,
+                createdAt: Date.now()
+            });
+            
+            setCfg(cfg);
+            document.getElementById('announcement-text').value = '';
+            loadData();
+        });
+
+        window.removeAnnouncement = (idx) => {
+            if(!confirm('Remover este anúncio?')) return;
+            const cfg = getCfg();
+            cfg.announcements.splice(idx, 1);
+            setCfg(cfg);
+            loadData();
+        };
+
+    </script>
+</body>
+</html>
