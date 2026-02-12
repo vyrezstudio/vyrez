@@ -3,23 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Vyrez — Soluções Web de Alta Performance</title>
-  <meta name="description" content="Vyrez cria sites profissionais, hospedagem premium e suporte dedicado. Problemas com sites? Aqui não." />
+  <title>Vyrez — Seu site fica pronto, bonito e funcionando de verdade</title>
+  <meta name="description" content="Vyrez cria sites que vendem, hospeda com segurança e te ajuda de verdade. Problemas com site? Aqui a gente resolve junto." />
   
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   
   <style>
     :root {
       --primary: #0F172A;
-      --accent-start: #00BFFF;
-      --accent-end: #00FF9D;
-      --surface: #0A0F1A;
-      --surface-alt: #111827;
-      --text: #E2E8F0;
-      --text-muted: #94A3B8;
-      --border: #334155;
-      --radius: 16px;
-      --shadow: 0 10px 30px rgba(0,0,0,0.4);
+      --accent: #00D4FF;
+      --success: #22C55E;
+      --warm: #F97316;
+      --surface: #F9FAFB;
+      --surface-dark: #111827;
+      --text: #1E293B;
+      --text-light: #475569;
+      --border: #E2E8F0;
+      --radius: 20px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.08);
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
@@ -27,7 +28,7 @@
       font-family: 'Inter', sans-serif;
       background: var(--surface);
       color: var(--text);
-      line-height: 1.6;
+      line-height: 1.7;
     }
     h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
 
@@ -36,73 +37,70 @@
     /* Navbar */
     nav {
       position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(12px);
+      top: 0; left: 0; right: 0;
+      background: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
       z-index: 1000;
-      border-bottom: 1px solid var(--border);
     }
     .nav-inner {
+      height: 80px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 80px;
     }
     .logo {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: 1.9rem;
+      font-size: 1.8rem;
       font-weight: 700;
-      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: var(--primary);
     }
     .logo-symbol {
       width: 44px;
       height: 44px;
-      background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
-      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--success));
+      border-radius: 14px;
       display: grid;
       place-items: center;
+      color: white;
       font-size: 26px;
       font-weight: 900;
-      color: white;
-      box-shadow: 0 0 25px rgba(0, 212, 255, 0.35);
+      box-shadow: 0 0 20px rgba(0,212,255,0.25);
     }
 
-    .nav-links { display: flex; gap: 40px; font-weight: 500; }
-    .nav-links a:hover { color: var(--accent-start); }
+    .nav-links { display: flex; gap: 36px; font-weight: 500; }
+    .nav-links a { color: var(--text-light); transition: color 0.3s; }
+    .nav-links a:hover { color: var(--accent); }
 
     .nav-cta {
       padding: 12px 32px;
-      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
-      color: #000;
+      background: var(--accent);
+      color: white;
       border-radius: 9999px;
       font-weight: 600;
       text-decoration: none;
-      box-shadow: 0 0 30px rgba(0,212,255,0.3);
+      box-shadow: 0 6px 20px rgba(0,212,255,0.25);
     }
 
     /* Hero */
     .hero {
       padding: 160px 0 120px;
-      background: linear-gradient(to bottom, #0F172A, #1E293B);
+      background: linear-gradient(135deg, #F0F9FF, #E0F2FE);
       text-align: center;
     }
     .hero h1 {
-      font-size: 4.5rem;
+      font-size: 4.2rem;
       margin-bottom: 24px;
-      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+      color: var(--primary);
     }
-    .hero p { font-size: 1.4rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px; }
+    .hero p {
+      font-size: 1.35rem;
+      color: var(--text-light);
+      max-width: 720px;
+      margin: 0 auto 40px;
+    }
 
-    /* Btn */
     .btn {
       padding: 16px 40px;
       border-radius: 9999px;
@@ -112,41 +110,49 @@
       display: inline-block;
     }
     .btn-primary {
-      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
-      color: #000;
-      box-shadow: 0 0 40px rgba(0,212,255,0.4);
+      background: var(--accent);
+      color: white;
+      box-shadow: 0 8px 30px rgba(0,212,255,0.3);
     }
-    .btn-primary:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,212,255,0.5); }
+    .btn-primary:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 50px rgba(0,212,255,0.4);
+    }
 
     /* Sections */
     .section { padding: 100px 0; }
-    .section-header { text-align: center; margin-bottom: 60px; }
-    .section-header h2 { font-size: 3rem; color: white; }
+    .section-header { text-align: center; margin-bottom: 70px; }
+    .section-header h2 { font-size: 3.2rem; color: var(--primary); }
 
     .card {
-      background: rgba(30,41,59,0.7);
-      border: 1px solid var(--border);
+      background: white;
       border-radius: var(--radius);
-      padding: 32px;
-      backdrop-filter: blur(8px);
+      padding: 40px 32px;
+      box-shadow: var(--shadow);
+      transition: all 0.4s;
     }
-    .card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
+    .card:hover {
+      transform: translateY(-12px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+    }
 
     /* Chat */
     .chat-window {
-      height: 480px;
+      height: 520px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: rgba(30,41,59,0.8);
+      background: white;
+      box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
       overflow: hidden;
     }
     .chat-header {
-      padding: 16px 24px;
-      background: rgba(15,23,42,0.8);
-      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+      background: var(--accent);
+      color: white;
       font-weight: 600;
+      font-size: 1.1rem;
     }
     .chat-messages {
       flex: 1;
@@ -159,55 +165,53 @@
     .msg {
       max-width: 80%;
       padding: 14px 20px;
-      border-radius: 18px;
+      border-radius: 20px;
       font-size: 1rem;
     }
     .msg.bot {
-      background: rgba(255,255,255,0.08);
+      background: #F1F5F9;
       align-self: flex-start;
-      border-bottom-left-radius: 4px;
+      border-bottom-left-radius: 6px;
     }
     .msg.user {
-      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
-      color: #000;
+      background: var(--accent);
+      color: white;
       align-self: flex-end;
-      border-bottom-right-radius: 4px;
+      border-bottom-right-radius: 6px;
     }
     .chat-input {
-      padding: 16px;
+      padding: 16px 24px;
       border-top: 1px solid var(--border);
       display: flex;
       gap: 12px;
-      background: rgba(15,23,42,0.6);
+      background: #F9FAFB;
     }
     .chat-input input {
       flex: 1;
       padding: 14px 20px;
       border-radius: 9999px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.05);
-      color: white;
+      background: white;
     }
 
     /* Form */
     input, select, textarea {
       width: 100%;
-      padding: 16px;
+      padding: 16px 20px;
       margin-bottom: 20px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      background: rgba(30,41,59,0.7);
-      color: white;
+      border-radius: 16px;
+      border: 1px solid #CBD5E1;
+      background: white;
+      font-size: 1rem;
     }
 
     /* Admin */
     #admin { display: none; }
     #panel { display: none; }
 
-    /* Responsive */
     @media (max-width: 968px) {
       .nav-links { display: none; }
-      .hero h1 { font-size: 3.2rem; }
+      .hero h1 { font-size: 3rem; }
     }
   </style>
 </head>
@@ -228,16 +232,16 @@
         <a href="#contato">Contato</a>
       </div>
 
-      <a href="#personalizados" class="btn btn-primary">Começar Projeto</a>
+      <a href="#personalizados" class="btn btn-primary">Falar comigo agora</a>
     </div>
   </nav>
 
   <!-- Hero -->
   <section id="inicio" class="hero">
     <div class="container">
-      <h1>Problemas com sites?<br>Aqui não.</h1>
-      <p>Sites rápidos, modernos, que vendem de verdade. Hospedagem premium e suporte humano 24/7.</p>
-      <a href="#personalizados" class="btn btn-primary">Solicitar Orçamento Grátis</a>
+      <h1>Ei, cansou de site que não carrega ou não vende?</h1>
+      <p>Aqui na Vyrez a gente faz diferente: site bonito, rápido, que aparece no Google e realmente traz cliente. E o melhor: te explico tudo de forma simples e cuido de você do começo ao fim.</p>
+      <a href="#personalizados" class="btn btn-primary">Quero meu site perfeito</a>
     </div>
   </section>
 
@@ -245,57 +249,57 @@
   <section id="servicos" class="section">
     <div class="container">
       <div class="section-header">
-        <h2>Nossas Soluções</h2>
+        <h2>O que a gente faz por você</h2>
       </div>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px;">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 32px;">
         <div class="card">
-          <h3>Sites Personalizados</h3>
-          <p style="color: var(--text-muted); margin-top: 16px;">Landing pages, institucionais, e-commerces e sistemas sob medida.</p>
+          <h3>Site que parece com você</h3>
+          <p style="margin-top: 16px; color: var(--text-light);">Nada de modelo genérico. Criamos algo único, bonito e que representa seu negócio de verdade.</p>
         </div>
         <div class="card">
-          <h3>Hospedagem Premium</h3>
-          <p style="color: var(--text-muted); margin-top: 16px;">Vyrez Cloud: rápido, seguro, SSL grátis, backup diário.</p>
+          <h3>Hospedagem que não cai</h3>
+          <p style="margin-top: 16px; color: var(--text-light);">Vyrez Cloud: rápido, seguro, com backup todo dia e SSL grátis. Seu site fica no ar 99,9% do tempo.</p>
         </div>
         <div class="card">
-          <h3>Suporte Dedicado</h3>
-          <p style="color: var(--text-muted); margin-top: 16px;">Assistente IA + WhatsApp humano sempre disponível.</p>
+          <h3>Suporte de gente de verdade</h3>
+          <p style="margin-top: 16px; color: var(--text-light);">Tem dúvida? Chama no WhatsApp ou fala com nossa IA simpática. Nunca te deixamos na mão.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Personalizados / Form + Chat -->
+  <!-- Form + Chat -->
   <section id="personalizados" class="section">
     <div class="container">
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
-        <!-- Form -->
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 80px;">
+        <!-- Formulário -->
         <div>
-          <h2>Vamos criar seu site?</h2>
-          <p style="color: var(--text-muted); margin: 16px 0 32px;">Preencha abaixo e te retorno no WhatsApp em minutos.</p>
+          <h2>Bora conversar sobre o seu projeto?</h2>
+          <p style="color: var(--text-light); margin: 16px 0 40px;">Me conta rapidinho quem você é e o que precisa. Te respondo no WhatsApp em poucos minutos.</p>
           
           <form id="formSite">
-            <input name="nome" placeholder="Nome completo" required>
+            <input name="nome" placeholder="Seu nome" required>
             <input name="whatsapp" placeholder="WhatsApp (com DDD)" required>
-            <input name="email" type="email" placeholder="E-mail (opcional)">
+            <input name="email" type="email" placeholder="Seu e-mail (opcional)">
             <select name="tipo">
-              <option>Site Institucional</option>
-              <option>Loja Virtual (E-commerce)</option>
-              <option>Landing Page</option>
-              <option>Portfólio</option>
-              <option>Sistema Web</option>
+              <option>Site Institucional / Portfólio</option>
+              <option>Loja Virtual</option>
+              <option>Landing Page para anúncios</option>
+              <option>Sistema Web / Área de membros</option>
+              <option>Outro (me explica)</option>
             </select>
-            <textarea name="descricao" rows="5" placeholder="Descreva seu projeto..." required></textarea>
-            <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Pedido</button>
+            <textarea name="descricao" rows="5" placeholder="Me conta mais: o que você quer, prazo, orçamento aproximado..." required></textarea>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar e falar comigo</button>
           </form>
         </div>
 
         <!-- Chat IA -->
         <div>
           <div class="chat-window">
-            <div class="chat-header">Assistente Vyrez IA</div>
+            <div class="chat-header">Oi, sou a Vy da Vyrez 😊 Como posso te ajudar hoje?</div>
             <div id="chat" class="chat-messages"></div>
             <div class="chat-input">
-              <input id="in" type="text" placeholder="Digite sua dúvida...">
+              <input id="in" type="text" placeholder="Digite sua dúvida ou ideia...">
               <button id="send" class="btn btn-primary" style="padding: 0 32px;">Enviar</button>
             </div>
           </div>
@@ -306,35 +310,32 @@
 
   <!-- Admin (escondido) -->
   <section id="admin">
-    <div class="container" style="padding-top: 120px;">
+    <div class="container" style="padding-top: 140px;">
       <div id="loginCard" class="card" style="max-width: 420px; margin: 0 auto;">
-        <h2 style="margin-bottom: 24px;">Painel Administrativo</h2>
+        <h2 style="margin-bottom: 32px;">Área Admin Vyrez</h2>
         <input id="user" placeholder="Usuário" style="margin-bottom: 16px;">
         <input id="pass" type="password" placeholder="Senha" style="margin-bottom: 24px;">
         <button id="doLogin" class="btn btn-primary" style="width: 100%;">Entrar</button>
       </div>
 
-      <div id="panel">
-        <div class="section-header">
-          <h2>Dashboard Vyrez</h2>
-          <button onclick="location.reload()" class="btn" style="background: #EF4444; color: white; margin-top: 16px;">Sair</button>
-        </div>
+      <div id="panel" style="margin-top: 60px;">
+        <h2 style="text-align: center; margin-bottom: 40px;">Dashboard</h2>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
           <div class="card">
-            <h3>Configurações</h3>
-            <label style="display: block; margin: 16px 0 8px;">WhatsApp de Suporte</label>
-            <input id="cfgWhats" placeholder="5535..." style="margin-bottom: 16px;">
-            <label style="display: block; margin: 16px 0 8px;">Preço Hospedagem (R$)</label>
-            <input id="cfgHosting" type="number" step="0.01" style="margin-bottom: 24px;">
-            <button id="saveCfg" class="btn btn-primary" style="width: 100%;">Salvar Configurações</button>
+            <h3>Configurações Rápidas</h3>
+            <label style="display: block; margin: 20px 0 8px; font-weight: 500;">WhatsApp de atendimento</label>
+            <input id="cfgWhats" placeholder="5535..." style="margin-bottom: 24px;">
+            <label style="display: block; margin: 20px 0 8px; font-weight: 500;">Preço mensal hospedagem (R$)</label>
+            <input id="cfgHosting" type="number" step="0.01" style="margin-bottom: 32px;">
+            <button id="saveCfg" class="btn btn-primary" style="width: 100%;">Salvar tudo</button>
           </div>
 
           <div class="card">
-            <h3>Últimos Pedidos</h3>
-            <div style="overflow-x: auto; margin-top: 16px;">
-              <table id="tblO" style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+            <h3>Pedidos recentes</h3>
+            <div style="margin-top: 20px; overflow-x: auto;">
+              <table id="tblO" style="width: 100%; border-collapse: collapse;">
                 <thead>
-                  <tr style="border-bottom: 1px solid var(--border);">
+                  <tr style="border-bottom: 2px solid var(--border);">
                     <th style="padding: 12px; text-align: left;">Cliente</th>
                     <th style="padding: 12px; text-align: left;">Tipo</th>
                     <th style="padding: 12px; text-align: left;">Status</th>
@@ -345,13 +346,19 @@
             </div>
           </div>
         </div>
+        <div style="text-align: center; margin-top: 40px;">
+          <button onclick="location.reload()" style="padding: 12px 32px; background: #EF4444; color: white; border: none; border-radius: 9999px; cursor: pointer;">Sair</button>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer style="background: #000; padding: 60px 0; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border);">
-    <p>© 2026 Vyrez • Poços de Caldas, MG • Todos os direitos reservados.</p>
+  <footer style="background: var(--surface-dark); color: white; padding: 80px 0 40px; text-align: center;">
+    <div class="container">
+      <p style="font-size: 1.1rem; margin-bottom: 16px;">Feito com carinho em Poços de Caldas, MG</p>
+      <p style="opacity: 0.7;">© 2026 Vyrez — Aqui seu site dá certo.</p>
+    </div>
   </footer>
 
   <script>
@@ -379,21 +386,20 @@
     function addOrder(data) {
       const orders = getOrders();
       const id = Math.random().toString(36).substr(2, 9);
-      orders.unshift({ id, ...data, status: 'Pendente', date: new Date().toISOString() });
+      orders.unshift({ id, ...data, status: 'Novo', date: new Date().toISOString() });
       localStorage.setItem(KEY_ORDERS, JSON.stringify(orders));
       return id;
     }
 
-    // UI Update
+    // UI
     function updateUI() {
       const cfg = getConfig();
       document.querySelectorAll('#hprice').forEach(el => el.textContent = cfg.hostingPrice.toFixed(2).replace('.', ','));
-      if (document.getElementById('wppbtn')) document.getElementById('wppbtn').href = `https://wa.me/${cfg.whatsapp}`;
       if (document.getElementById('cfgWhats')) document.getElementById('cfgWhats').value = cfg.whatsapp;
       if (document.getElementById('cfgHosting')) document.getElementById('cfgHosting').value = cfg.hostingPrice;
     }
 
-    // Chatbot
+    // Chat IA
     const chat = document.getElementById('chat');
 
     function addMsg(text, type) {
@@ -405,7 +411,7 @@
     }
 
     function botReply(text) {
-      setTimeout(() => addMsg(text, 'bot'), 700);
+      setTimeout(() => addMsg(text, 'bot'), 800);
     }
 
     function handleChat(msg) {
@@ -414,16 +420,16 @@
 
       const cfg = getConfig();
 
-      if (msg.includes('preço') || msg.includes('valor') || msg.includes('custo') || msg.includes('quanto')) {
-        botReply(`A hospedagem Vyrez Cloud sai por R$ ${cfg.hostingPrice.toFixed(2).replace('.', ',')}/mês. Sites personalizados variam conforme o projeto.`);
-      } else if (msg.includes('site') || msg.includes('fazer') || msg.includes('criar')) {
-        botReply('Fazemos sites institucionais, lojas virtuais, landing pages, portfólios e sistemas web. Preencha o formulário ao lado para orçamento personalizado!');
+      if (msg.includes('oi') || msg.includes('olá') || msg.includes('bom dia') || msg.includes('boa tarde')) {
+        botReply('Oi! Tudo bem por aí? 😄 Me conta como posso te ajudar hoje!');
+      } else if (msg.includes('preço') || msg.includes('valor') || msg.includes('quanto')) {
+        botReply(`A hospedagem sai por R$ ${cfg.hostingPrice.toFixed(2).replace('.', ',')}/mês. Já o site personalizado varia conforme o que você precisa – me fala mais que eu te dou uma ideia honesta!`);
       } else if (msg.includes('prazo') || msg.includes('tempo') || msg.includes('demora')) {
-        botReply('A maioria dos projetos sai em 2 a 5 dias úteis, dependendo da complexidade.');
-      } else if (msg.includes('humano') || msg.includes('pessoa') || msg.includes('atendente')) {
-        botReply('Claro! Clique no botão WhatsApp ao lado para falar com um humano agora mesmo.');
+        botReply('Normalmente entre 3 e 7 dias úteis, dependendo do tamanho do projeto. Se for urgente, a gente dá um gás extra 😉');
+      } else if (msg.includes('site') || msg.includes('fazer') || msg.includes('criar')) {
+        botReply('A gente faz de tudo: site bonito pra mostrar seu trabalho, loja virtual pra vender, landing pra anúncio... Me diz o que tá na sua cabeça que eu te oriento direitinho!');
       } else {
-        botReply('Posso te ajudar com preços, prazos, tipos de site ou qualquer dúvida. Se preferir falar direto com a equipe, é só clicar no WhatsApp!');
+        botReply('Hmm, me conta mais um pouquinho que eu te ajudo melhor! Ou se quiser falar direto com alguém da equipe, clica no botão WhatsApp ali do lado 😊');
       }
     }
 
@@ -439,14 +445,14 @@
       if (e.key === 'Enter') document.getElementById('send').click();
     });
 
-    // Saudação inicial do chat
-    setTimeout(() => addMsg('Olá! Sou a assistente IA da Vyrez. Como posso ajudar você hoje? 😊', 'bot'), 800);
+    // Saudação inicial
+    setTimeout(() => addMsg('Oi! Tudo bem? 😊 Sou a Vy da Vyrez. Me conta o que você precisa hoje!', 'bot'), 1000);
 
-    // Form Submission
+    // Form
     document.getElementById('formSite').addEventListener('submit', e => {
       e.preventDefault();
       const formData = new FormData(e.target);
-      const data = Object.fromEntries(formData.entries());
+      const data = Object.fromEntries(formData);
 
       const id = addOrder(data);
 
@@ -459,7 +465,7 @@
       const cfg = getConfig();
       window.open(`https://wa.me/${cfg.whatsapp}?text=${text}`, '_blank');
 
-      alert('Pedido enviado com sucesso! Redirecionando para o WhatsApp...');
+      alert('Enviado com sucesso! Redirecionando pro WhatsApp...');
       e.target.reset();
     });
 
@@ -468,12 +474,12 @@
       const u = document.getElementById('user').value.trim();
       const p = document.getElementById('pass').value.trim();
 
-      if (u === 'admin' && p === 'admin123') {  // Mude a senha depois!
+      if (u === 'admin' && p === 'admin123') {
         document.getElementById('loginCard').style.display = 'none';
         document.getElementById('panel').style.display = 'block';
         renderAdminPanel();
       } else {
-        alert('Usuário ou senha inválidos.');
+        alert('Usuário ou senha errados. Tenta de novo!');
       }
     });
 
@@ -485,12 +491,12 @@
       orders.forEach(o => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
-          <td style="padding: 12px; border-bottom: 1px solid var(--border);">
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">
             <strong>${o.nome}</strong><br>
-            <small style="color: var(--text-muted);">${o.whatsapp}</small>
+            <small>${o.whatsapp}</small>
           </td>
-          <td style="padding: 12px; border-bottom: 1px solid var(--border);">${o.tipo}</td>
-          <td style="padding: 12px; border-bottom: 1px solid var(--border);">${o.status}</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">${o.tipo}</td>
+          <td style="padding: 12px; border-bottom: 1px solid #eee;">${o.status}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -502,7 +508,7 @@
         hostingPrice: parseFloat(document.getElementById('cfgHosting').value) || 12.50
       };
       saveConfig(newCfg);
-      alert('Configurações salvas com sucesso!');
+      alert('Tudo salvo! Agora tá atualizado 😊');
     });
 
     // Inicializa
