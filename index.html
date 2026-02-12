@@ -13,18 +13,19 @@
       --primary: #0F172A;
       --accent-start: #00BFFF;
       --accent-end: #00FF9D;
-      --surface: #FFFFFF;
-      --surface-dark: #0F172A;
+      --surface: #0A0F1A;
+      --surface-alt: #111827;
       --text: #E2E8F0;
       --text-muted: #94A3B8;
       --border: #334155;
       --radius: 16px;
+      --shadow: 0 10px 30px rgba(0,0,0,0.4);
     }
 
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
       font-family: 'Inter', sans-serif;
-      background: #0A0F1A;
+      background: var(--surface);
       color: var(--text);
       line-height: 1.6;
     }
@@ -37,7 +38,7 @@
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(15, 23, 42, 0.92);
+      background: rgba(15, 23, 42, 0.95);
       backdrop-filter: blur(12px);
       z-index: 1000;
       border-bottom: 1px solid var(--border);
@@ -51,32 +52,28 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 16px;
-      font-size: 1.8rem;
+      gap: 12px;
+      font-size: 1.9rem;
       font-weight: 700;
-      color: transparent;
       background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
       -webkit-background-clip: text;
       background-clip: text;
+      color: transparent;
     }
     .logo-symbol {
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
       border-radius: 12px;
       display: grid;
       place-items: center;
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 900;
       color: white;
-      box-shadow: 0 0 30px rgba(0, 212, 255, 0.4);
+      box-shadow: 0 0 25px rgba(0, 212, 255, 0.35);
     }
 
-    .nav-links {
-      display: flex;
-      gap: 40px;
-      font-weight: 500;
-    }
+    .nav-links { display: flex; gap: 40px; font-weight: 500; }
     .nav-links a:hover { color: var(--accent-start); }
 
     .nav-cta {
@@ -86,7 +83,7 @@
       border-radius: 9999px;
       font-weight: 600;
       text-decoration: none;
-      box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+      box-shadow: 0 0 30px rgba(0,212,255,0.3);
     }
 
     /* Hero */
@@ -103,14 +100,9 @@
       background-clip: text;
       color: transparent;
     }
-    .hero p {
-      font-size: 1.4rem;
-      color: var(--text-muted);
-      max-width: 700px;
-      margin: 0 auto 40px;
-    }
+    .hero p { font-size: 1.4rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 40px; }
 
-    /* Buttons */
+    /* Btn */
     .btn {
       padding: 16px 40px;
       border-radius: 9999px;
@@ -122,42 +114,106 @@
     .btn-primary {
       background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
       color: #000;
-      box-shadow: 0 0 40px rgba(0, 212, 255, 0.4);
+      box-shadow: 0 0 40px rgba(0,212,255,0.4);
     }
-    .btn-primary:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 60px rgba(0, 212, 255, 0.5);
-    }
+    .btn-primary:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,212,255,0.5); }
 
     /* Sections */
     .section { padding: 100px 0; }
-    .section-header {
-      text-align: center;
-      margin-bottom: 60px;
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-header h2 { font-size: 3rem; color: white; }
+
+    .card {
+      background: rgba(30,41,59,0.7);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      backdrop-filter: blur(8px);
     }
-    .section-header h2 {
-      font-size: 3rem;
+    .card:hover { transform: translateY(-8px); box-shadow: var(--shadow); }
+
+    /* Chat */
+    .chat-window {
+      height: 480px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: rgba(30,41,59,0.8);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .chat-header {
+      padding: 16px 24px;
+      background: rgba(15,23,42,0.8);
+      border-bottom: 1px solid var(--border);
+      font-weight: 600;
+    }
+    .chat-messages {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .msg {
+      max-width: 80%;
+      padding: 14px 20px;
+      border-radius: 18px;
+      font-size: 1rem;
+    }
+    .msg.bot {
+      background: rgba(255,255,255,0.08);
+      align-self: flex-start;
+      border-bottom-left-radius: 4px;
+    }
+    .msg.user {
+      background: linear-gradient(90deg, var(--accent-start), var(--accent-end));
+      color: #000;
+      align-self: flex-end;
+      border-bottom-right-radius: 4px;
+    }
+    .chat-input {
+      padding: 16px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 12px;
+      background: rgba(15,23,42,0.6);
+    }
+    .chat-input input {
+      flex: 1;
+      padding: 14px 20px;
+      border-radius: 9999px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.05);
       color: white;
     }
 
-    .card {
-      background: rgba(30, 41, 59, 0.6);
+    /* Form */
+    input, select, textarea {
+      width: 100%;
+      padding: 16px;
+      margin-bottom: 20px;
+      border-radius: 12px;
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 40px;
-      backdrop-filter: blur(8px);
+      background: rgba(30,41,59,0.7);
+      color: white;
     }
+
+    /* Admin */
+    #admin { display: none; }
+    #panel { display: none; }
 
     /* Responsive */
     @media (max-width: 968px) {
       .nav-links { display: none; }
-      .hero h1 { font-size: 3rem; }
+      .hero h1 { font-size: 3.2rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar com a logo que você gostou -->
+  <!-- Navbar -->
   <nav>
     <div class="container nav-inner">
       <div class="logo">
@@ -176,16 +232,16 @@
     </div>
   </nav>
 
-  <!-- Hero com mensagem forte -->
+  <!-- Hero -->
   <section id="inicio" class="hero">
     <div class="container">
       <h1>Problemas com sites?<br>Aqui não.</h1>
-      <p>Sites rápidos, bonitos, que convertem de verdade + hospedagem premium e suporte humano. Vyrez resolve.</p>
+      <p>Sites rápidos, modernos, que vendem de verdade. Hospedagem premium e suporte humano 24/7.</p>
       <a href="#personalizados" class="btn btn-primary">Solicitar Orçamento Grátis</a>
     </div>
   </section>
 
-  <!-- Services (mantido simples, mas com estilo novo) -->
+  <!-- Services -->
   <section id="servicos" class="section">
     <div class="container">
       <div class="section-header">
@@ -194,70 +250,263 @@
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px;">
         <div class="card">
           <h3>Sites Personalizados</h3>
-          <p style="color: var(--text-muted); margin-top: 16px;">Landing pages, institucionais, e-commerces e sistemas feitos sob medida.</p>
+          <p style="color: var(--text-muted); margin-top: 16px;">Landing pages, institucionais, e-commerces e sistemas sob medida.</p>
         </div>
         <div class="card">
           <h3>Hospedagem Premium</h3>
-          <p style="color: var(--text-muted); margin-top: 16px;">Rápida, segura, com SSL, backup e 99.9% uptime.</p>
+          <p style="color: var(--text-muted); margin-top: 16px;">Vyrez Cloud: rápido, seguro, SSL grátis, backup diário.</p>
         </div>
         <div class="card">
           <h3>Suporte Dedicado</h3>
-          <p style="color: var(--text-muted); margin-top: 16px;">Assistente virtual + WhatsApp humano sempre disponível.</p>
+          <p style="color: var(--text-muted); margin-top: 16px;">Assistente IA + WhatsApp humano sempre disponível.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Formulário (mantido o essencial) -->
+  <!-- Personalizados / Form + Chat -->
   <section id="personalizados" class="section">
     <div class="container">
-      <div class="section-header">
-        <h2>Vamos criar seu site?</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 60px;">
+        <!-- Form -->
+        <div>
+          <h2>Vamos criar seu site?</h2>
+          <p style="color: var(--text-muted); margin: 16px 0 32px;">Preencha abaixo e te retorno no WhatsApp em minutos.</p>
+          
+          <form id="formSite">
+            <input name="nome" placeholder="Nome completo" required>
+            <input name="whatsapp" placeholder="WhatsApp (com DDD)" required>
+            <input name="email" type="email" placeholder="E-mail (opcional)">
+            <select name="tipo">
+              <option>Site Institucional</option>
+              <option>Loja Virtual (E-commerce)</option>
+              <option>Landing Page</option>
+              <option>Portfólio</option>
+              <option>Sistema Web</option>
+            </select>
+            <textarea name="descricao" rows="5" placeholder="Descreva seu projeto..." required></textarea>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Pedido</button>
+          </form>
+        </div>
+
+        <!-- Chat IA -->
+        <div>
+          <div class="chat-window">
+            <div class="chat-header">Assistente Vyrez IA</div>
+            <div id="chat" class="chat-messages"></div>
+            <div class="chat-input">
+              <input id="in" type="text" placeholder="Digite sua dúvida...">
+              <button id="send" class="btn btn-primary" style="padding: 0 32px;">Enviar</button>
+            </div>
+          </div>
+        </div>
       </div>
-      <form id="formSite" style="max-width: 600px; margin: 0 auto;">
-        <input name="nome" placeholder="Nome completo" required style="width: 100%; padding: 16px; margin-bottom: 16px; border-radius: 12px; border: 1px solid var(--border); background: #1E293B; color: white;">
-        <input name="whatsapp" placeholder="WhatsApp" required style="width: 100%; padding: 16px; margin-bottom: 16px; border-radius: 12px; border: 1px solid var(--border); background: #1E293B; color: white;">
-        <select name="tipo" style="width: 100%; padding: 16px; margin-bottom: 16px; border-radius: 12px; border: 1px solid var(--border); background: #1E293B; color: white;">
-          <option>Site Institucional</option>
-          <option>Loja Virtual</option>
-          <option>Landing Page</option>
-          <option>Portfólio</option>
-          <option>Sistema Web</option>
-        </select>
-        <textarea name="descricao" rows="5" placeholder="Descreva seu projeto..." required style="width: 100%; padding: 16px; margin-bottom: 24px; border-radius: 12px; border: 1px solid var(--border); background: #1E293B; color: white;"></textarea>
-        <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Pedido</button>
-      </form>
     </div>
   </section>
 
-  <!-- Footer simples -->
-  <footer style="background: #0A0F1A; padding: 60px 0; text-align: center; color: var(--text-muted);">
-    <p>© 2026 Vyrez • Poços de Caldas, MG</p>
+  <!-- Admin (escondido) -->
+  <section id="admin">
+    <div class="container" style="padding-top: 120px;">
+      <div id="loginCard" class="card" style="max-width: 420px; margin: 0 auto;">
+        <h2 style="margin-bottom: 24px;">Painel Administrativo</h2>
+        <input id="user" placeholder="Usuário" style="margin-bottom: 16px;">
+        <input id="pass" type="password" placeholder="Senha" style="margin-bottom: 24px;">
+        <button id="doLogin" class="btn btn-primary" style="width: 100%;">Entrar</button>
+      </div>
+
+      <div id="panel">
+        <div class="section-header">
+          <h2>Dashboard Vyrez</h2>
+          <button onclick="location.reload()" class="btn" style="background: #EF4444; color: white; margin-top: 16px;">Sair</button>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px;">
+          <div class="card">
+            <h3>Configurações</h3>
+            <label style="display: block; margin: 16px 0 8px;">WhatsApp de Suporte</label>
+            <input id="cfgWhats" placeholder="5535..." style="margin-bottom: 16px;">
+            <label style="display: block; margin: 16px 0 8px;">Preço Hospedagem (R$)</label>
+            <input id="cfgHosting" type="number" step="0.01" style="margin-bottom: 24px;">
+            <button id="saveCfg" class="btn btn-primary" style="width: 100%;">Salvar Configurações</button>
+          </div>
+
+          <div class="card">
+            <h3>Últimos Pedidos</h3>
+            <div style="overflow-x: auto; margin-top: 16px;">
+              <table id="tblO" style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+                <thead>
+                  <tr style="border-bottom: 1px solid var(--border);">
+                    <th style="padding: 12px; text-align: left;">Cliente</th>
+                    <th style="padding: 12px; text-align: left;">Tipo</th>
+                    <th style="padding: 12px; text-align: left;">Status</th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="background: #000; padding: 60px 0; text-align: center; color: var(--text-muted); border-top: 1px solid var(--border);">
+    <p>© 2026 Vyrez • Poços de Caldas, MG • Todos os direitos reservados.</p>
   </footer>
 
   <script>
-    // Seu JavaScript original mantido (chatbot, form, config, etc.)
+    // Config & State
     const KEY_CFG = 'vy_cfg';
+    const KEY_ORDERS = 'vy_orders';
+
     const defaultConfig = { whatsapp: '5535984734190', hostingPrice: 12.50 };
 
     function getConfig() {
-      try { return {...defaultConfig, ...JSON.parse(localStorage.getItem(KEY_CFG) || '{}')}; }
+      try { return { ...defaultConfig, ...JSON.parse(localStorage.getItem(KEY_CFG) || '{}') }; }
       catch { return defaultConfig; }
     }
 
-    // Form submission (abre WhatsApp)
-    document.getElementById('formSite').addEventListener('submit', (e) => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      const data = Object.fromEntries(formData);
+    function saveConfig(cfg) {
+      localStorage.setItem(KEY_CFG, JSON.stringify(cfg));
+      updateUI();
+    }
+
+    function getOrders() {
+      try { return JSON.parse(localStorage.getItem(KEY_ORDERS) || '[]'); }
+      catch { return []; }
+    }
+
+    function addOrder(data) {
+      const orders = getOrders();
+      const id = Math.random().toString(36).substr(2, 9);
+      orders.unshift({ id, ...data, status: 'Pendente', date: new Date().toISOString() });
+      localStorage.setItem(KEY_ORDERS, JSON.stringify(orders));
+      return id;
+    }
+
+    // UI Update
+    function updateUI() {
+      const cfg = getConfig();
+      document.querySelectorAll('#hprice').forEach(el => el.textContent = cfg.hostingPrice.toFixed(2).replace('.', ','));
+      if (document.getElementById('wppbtn')) document.getElementById('wppbtn').href = `https://wa.me/${cfg.whatsapp}`;
+      if (document.getElementById('cfgWhats')) document.getElementById('cfgWhats').value = cfg.whatsapp;
+      if (document.getElementById('cfgHosting')) document.getElementById('cfgHosting').value = cfg.hostingPrice;
+    }
+
+    // Chatbot
+    const chat = document.getElementById('chat');
+
+    function addMsg(text, type) {
+      const div = document.createElement('div');
+      div.className = `msg ${type}`;
+      div.textContent = text;
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function botReply(text) {
+      setTimeout(() => addMsg(text, 'bot'), 700);
+    }
+
+    function handleChat(msg) {
+      msg = msg.toLowerCase().trim();
+      addMsg(msg, 'user');
+
       const cfg = getConfig();
 
-      const text = `*Novo Pedido Vyrez*%0A%0ANome: ${data.nome}%0AWhatsApp: ${data.whatsapp}%0ATipo: ${data.tipo}%0ADescrição: ${data.descricao}`;
+      if (msg.includes('preço') || msg.includes('valor') || msg.includes('custo') || msg.includes('quanto')) {
+        botReply(`A hospedagem Vyrez Cloud sai por R$ ${cfg.hostingPrice.toFixed(2).replace('.', ',')}/mês. Sites personalizados variam conforme o projeto.`);
+      } else if (msg.includes('site') || msg.includes('fazer') || msg.includes('criar')) {
+        botReply('Fazemos sites institucionais, lojas virtuais, landing pages, portfólios e sistemas web. Preencha o formulário ao lado para orçamento personalizado!');
+      } else if (msg.includes('prazo') || msg.includes('tempo') || msg.includes('demora')) {
+        botReply('A maioria dos projetos sai em 2 a 5 dias úteis, dependendo da complexidade.');
+      } else if (msg.includes('humano') || msg.includes('pessoa') || msg.includes('atendente')) {
+        botReply('Claro! Clique no botão WhatsApp ao lado para falar com um humano agora mesmo.');
+      } else {
+        botReply('Posso te ajudar com preços, prazos, tipos de site ou qualquer dúvida. Se preferir falar direto com a equipe, é só clicar no WhatsApp!');
+      }
+    }
+
+    document.getElementById('send').addEventListener('click', () => {
+      const input = document.getElementById('in');
+      if (input.value.trim()) {
+        handleChat(input.value);
+        input.value = '';
+      }
+    });
+
+    document.getElementById('in').addEventListener('keypress', e => {
+      if (e.key === 'Enter') document.getElementById('send').click();
+    });
+
+    // Saudação inicial do chat
+    setTimeout(() => addMsg('Olá! Sou a assistente IA da Vyrez. Como posso ajudar você hoje? 😊', 'bot'), 800);
+
+    // Form Submission
+    document.getElementById('formSite').addEventListener('submit', e => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData.entries());
+
+      const id = addOrder(data);
+
+      const text = `*Novo Pedido Vyrez #${id}*%0A` +
+                   `Nome: ${data.nome}%0A` +
+                   `WhatsApp: ${data.whatsapp}%0A` +
+                   `Tipo: ${data.tipo}%0A` +
+                   `Descrição: ${data.descricao}`;
+
+      const cfg = getConfig();
       window.open(`https://wa.me/${cfg.whatsapp}?text=${text}`, '_blank');
 
-      alert('Pedido enviado! Redirecionando para o WhatsApp...');
+      alert('Pedido enviado com sucesso! Redirecionando para o WhatsApp...');
       e.target.reset();
     });
+
+    // Admin Login
+    document.getElementById('doLogin').addEventListener('click', () => {
+      const u = document.getElementById('user').value.trim();
+      const p = document.getElementById('pass').value.trim();
+
+      if (u === 'admin' && p === 'admin123') {  // Mude a senha depois!
+        document.getElementById('loginCard').style.display = 'none';
+        document.getElementById('panel').style.display = 'block';
+        renderAdminPanel();
+      } else {
+        alert('Usuário ou senha inválidos.');
+      }
+    });
+
+    function renderAdminPanel() {
+      const orders = getOrders();
+      const tbody = document.querySelector('#tblO tbody');
+      tbody.innerHTML = '';
+
+      orders.forEach(o => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td style="padding: 12px; border-bottom: 1px solid var(--border);">
+            <strong>${o.nome}</strong><br>
+            <small style="color: var(--text-muted);">${o.whatsapp}</small>
+          </td>
+          <td style="padding: 12px; border-bottom: 1px solid var(--border);">${o.tipo}</td>
+          <td style="padding: 12px; border-bottom: 1px solid var(--border);">${o.status}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    document.getElementById('saveCfg').addEventListener('click', () => {
+      const newCfg = {
+        whatsapp: document.getElementById('cfgWhats').value.trim(),
+        hostingPrice: parseFloat(document.getElementById('cfgHosting').value) || 12.50
+      };
+      saveConfig(newCfg);
+      alert('Configurações salvas com sucesso!');
+    });
+
+    // Inicializa
+    updateUI();
   </script>
 </body>
 </html>
